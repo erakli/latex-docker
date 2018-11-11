@@ -38,7 +38,7 @@ ENV TEXLIVE_BIN="${TEXLIVE_DIR}/bin/x86_64-linux"
 # set TeX Live binaries in front of PATH
 ENV PATH="${TEXLIVE_BIN}:${PATH}"
 
-# ghostscript links to export (https://packages.debian.org/jessie/amd64/ghostscript/filelist)
+# ghostscript links to export (https://packages.debian.org/stretch/amd64/ghostscript/filelist)
 RUN ln -s \
     /usr/bin/dvipdf \
     /usr/bin/eps2eps \
@@ -53,7 +53,6 @@ RUN ln -s \
     /usr/bin/gsnd \
     /usr/bin/pdf2dsc \
     /usr/bin/pdf2ps \
-    /usr/bin/pdfopt \
     /usr/bin/pf2afm \
     /usr/bin/pfbtopfa \
     /usr/bin/pphs \
