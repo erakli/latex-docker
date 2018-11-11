@@ -19,9 +19,17 @@ RUN apt-get install -y --no-install-recommends \
 RUN apt-get install -y --no-install-recommends \
     build-essential \
     wget \
-    libfontconfig1
+    libfontconfig1 \
+    imagemagick \
+    graphviz
 
-RUN rm -rf /var/lib/apt/lists/*
+RUN apt-get clean
+
+RUN rm -rf \
+    /var/lib/apt/lists \
+    /var/cache/apt/archives \
+    /usr/share/doc \
+    /usr/share/man
 
 # Install TexLive with scheme-basic
 RUN wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz; \
