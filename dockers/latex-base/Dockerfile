@@ -1,17 +1,27 @@
 # fork of https://github.com/blang/latex-docker / Benedikt Lang <mail@blang.io> 
-FROM debian:jessie
+FROM debian:stretch
 MAINTAINER Warren MacEvoy <wmacevoy@gmail.com>
+
 ENV DEBIAN_FRONTEND noninteractive
 
+RUN apt-get update 
+
 # needed for basic build rules
-RUN apt-get update && apt-get install -y software-properties-common
+RUN apt-get install -y software-properties-common
 
 # needed for asymptote to run
-RUN apt-get install -y freeglut3 libglu1 libosmesa6 ghostscript
+RUN apt-get install -y --no-install-recommends \
+    freeglut3 \
+    libglu1 \
+    libosmesa6 \
+    ghostscript
 
-RUN apt-get update -q \
-    && apt-get install -qy build-essential wget libfontconfig1 \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get install -y --no-install-recommends \
+    build-essential \
+    wget \
+    libfontconfig1
+
+RUN rm -rf /var/lib/apt/lists/*
 
 # Install TexLive with scheme-basic
 RUN wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz; \
