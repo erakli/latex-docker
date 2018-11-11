@@ -17,6 +17,7 @@ then
     exit 1
 fi
 
+# actual build of base image
 (cd "$BASE_DIR/dockers" && docker build -t "$base_name/latex-base:latest" latex-base)
 
 if [ ! -f "$BASE_DIR/dockers/latex/Dockerfile" ] ; then
