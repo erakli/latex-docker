@@ -24,10 +24,11 @@ If you want to use in an existing latex project, or update an existing project w
 
 In the root of your latex project, copy the following:
 ```bash
-curl -L https://github.com/wmacevoy/latex-docker/tarball/master | tar zxv --strip=1 '*/bin' '*/dockers'
+curl -L https://github.com/wmacevoy/latex-docker/tarball/master | tar -xzv --wildcards '*/dockers' '*/bin' --strip-components=1 -f latex-docker
 ```
-You should be able to do this anytime you want to encorporate an update without harming any of your files, including your
-custom latex docker in `dockers/latex/Dockerfile`.  This does over-write the following files:
+You should be able to do this anytime you want to encorporate an update without harming any of your files, including your custom latex docker in `dockers/latex/Dockerfile`.
+
+This does over-write the following files:
 
     bin/latex-docker
     bin/latex-docker-command
@@ -35,16 +36,23 @@ custom latex docker in `dockers/latex/Dockerfile`.  This does over-write the fol
     bin/latex-docker-rebuild
     bin/latex-docker-setup
     bin/latex-docker-setup-base
+    bin/latex-docker-uncontext
+    bin/latexdockercmd.sh
+    bin/latexdockerdaemon.sh
+    bin/latexdockerdaemoncmd.sh
     dockers/latex-base/Dockerfile
     dockers/latex/Dockerfile.* (example templates)
+    dockers/latex/.gitignore
 
 ### Step 2 - context
 
-The commands in the bin folder can be executed explicitly from any working directory.  However the project bin is added to the front of your PATH with [**NOTICE DOT**]
+The commands in the bin folder can be executed explicitly from any working directory.
+However the project bin is added to the front of your PATH with [**NOTICE DOT**]
 ```bash
 . bin/latex-docker-context
 ```
-in a terminal.  This command removes any occurances of the path first, so you can source context repeatedly.
+in a terminal.
+This command removes any occurances of the path first, so you can source context repeatedly.
 
 Sourcing uncontext,
 ```bash
@@ -58,7 +66,9 @@ After untarring/forking, build the base docker with
 ```bash
 bin/latex-docker-setup-base
 ```
-If you don't already have one, this creates a default scheme-full (5+GB, 2+ hours to build) latex Dockerfile in `dockers/latex/Dockerfile`.  It does not build it in this step (you can customize it in the next step).
+Builds base image (around 20 min on my computer) in docker.
+If you don't already have one, this creates a default scheme-full (5+GB, 2+ hours to build) latex Dockerfile in `dockers/latex/Dockerfile`.
+It does not build it in this step (you can customize it in the next step).
 
 This means if you want to just get a cup of coffee and not think about it, you can skip the customize step and you will have a full texlive to work from.
 
@@ -127,6 +137,8 @@ After this, any time they want to work on the project,
 
 - source (**NOTICE DOT**) `. bin/latex-docker-context` to setup their path in the terminal they are using.
 - use the texlive commands, `pdflatex paper.tex` etc.
+
+> NOTE: if you're using Windows and your project is outside Users folder, consider to check out [this](https://stackoverflow.com/a/30865500) and [this](https://stackoverflow.com/a/42435077) answers on StackOverflow.
 
 ## FAQ
 
