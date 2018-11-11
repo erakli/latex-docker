@@ -19,9 +19,7 @@ RUN apt-get install -y --no-install-recommends \
 RUN apt-get install -y --no-install-recommends \
     build-essential \
     wget \
-    libfontconfig1 \
-    imagemagick \
-    graphviz
+    libfontconfig1
 
 RUN apt-get clean
 
