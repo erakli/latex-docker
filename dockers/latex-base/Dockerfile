@@ -24,16 +24,47 @@ RUN wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz; \
 
 ENV TEXLIVE_DIR="/usr/local/texlive/2018"
 ENV TEXLIVE_BIN="${TEXLIVE_DIR}/bin/x86_64-linux"
+
+# set TeX Live binaries in front of PATH
 ENV PATH="${TEXLIVE_BIN}:${PATH}"
 
 # ghostscript links to export (https://packages.debian.org/jessie/amd64/ghostscript/filelist)
-RUN ln -s /usr/bin/dvipdf /usr/bin/eps2eps /usr/bin/font2c /usr/bin/ghostscript /usr/bin/gs /usr/bin/gsbj /usr/bin/gsdj /usr/bin/gsdj500 /usr/bin/gslj /usr/bin/gslp /usr/bin/gsnd /usr/bin/pdf2dsc/usr/bin/pdf2ps /usr/bin/pdfopt /usr/bin/pf2afm /usr/bin/pfbtopfa /usr/bin/pphs /usr/bin/printafm /usr/bin/ps2ascii /usr/bin/ps2epsi /usr/bin/ps2pdf /usr/bin/ps2pdf12 /usr/bin/ps2pdf13 /usr/bin/ps2pdf14 /usr/bin/ps2pdfwr /usr/bin/ps2ps /usr/bin/ps2ps2 /usr/bin/ps2txt /usr/bin/wftopfa "${TEXLIVE_BIN}"
+RUN ln -s \
+    /usr/bin/dvipdf \
+    /usr/bin/eps2eps \
+    /usr/bin/font2c \
+    /usr/bin/ghostscript \
+    /usr/bin/gs \
+    /usr/bin/gsbj \
+    /usr/bin/gsdj \
+    /usr/bin/gsdj500 \
+    /usr/bin/gslj \
+    /usr/bin/gslp \
+    /usr/bin/gsnd \
+    /usr/bin/pdf2dsc \
+    /usr/bin/pdf2ps \
+    /usr/bin/pdfopt \
+    /usr/bin/pf2afm \
+    /usr/bin/pfbtopfa \
+    /usr/bin/pphs \
+    /usr/bin/printafm \
+    /usr/bin/ps2ascii \
+    /usr/bin/ps2epsi \
+    /usr/bin/ps2pdf \
+    /usr/bin/ps2pdf12 \
+    /usr/bin/ps2pdf13 \
+    /usr/bin/ps2pdf14 \
+    /usr/bin/ps2pdfwr \
+    /usr/bin/ps2ps \
+    /usr/bin/ps2ps2 \
+    /usr/bin/ps2txt \
+    /usr/bin/wftopfa \
+    "${TEXLIVE_BIN}"
 
 WORKDIR /data
 ENV HOME /home
-# Install latex packages
+
+# Install latexmk utililty (https://ctan.org/pkg/latexmk)
 RUN tlmgr install latexmk
 
 VOLUME ["/data","/home"]
-
-
