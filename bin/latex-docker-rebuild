@@ -11,7 +11,7 @@ THIS_DIR="$(get_script_dir)"
 cd $THIS_DIR
 cd ..
 
-curl -L https://github.com/wmacevoy/latex-docker/tarball/master | tar -xvz --wildcards '*/dockers' '*/bin' --strip-components=1 -f latex-docker
+curl -L https://github.com/wmacevoy/latex-docker/tarball/master | tar -xvz --wildcards '*/dockers' '*/bin' --strip-components=1
 bin/latex-docker-setup
 if git rev-parse --is-inside-work-tree > /dev/null 2>&1
 then
