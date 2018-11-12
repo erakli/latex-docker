@@ -6,10 +6,10 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update 
 
-# needed for basic build rules
+# Needed for basic build rules
 RUN apt-get install -y software-properties-common
 
-# needed for asymptote to run
+# Needed for asymptote to run
 RUN apt-get install -y --no-install-recommends \
     freeglut3 \
     libglu1 \
@@ -20,6 +20,11 @@ RUN apt-get install -y --no-install-recommends \
     build-essential \
     wget \
     libfontconfig1
+
+# This is not necessary
+RUN apt-get install -y --no-install-recommends \
+    gpg \
+    fontconfig
 
 RUN apt-get clean
 
@@ -41,10 +46,10 @@ RUN wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz; \
 ENV TEXLIVE_DIR="/usr/local/texlive/2018"
 ENV TEXLIVE_BIN="${TEXLIVE_DIR}/bin/x86_64-linux"
 
-# set TeX Live binaries in front of PATH
+# Set TeX Live binaries in front of PATH
 ENV PATH="${TEXLIVE_BIN}:${PATH}"
 
-# ghostscript links to export (https://packages.debian.org/stretch/amd64/ghostscript/filelist)
+# Add ghostscript links to export (https://packages.debian.org/stretch/amd64/ghostscript/filelist)
 RUN ln -s \
     /usr/bin/dvipdf \
     /usr/bin/eps2eps \
@@ -79,7 +84,9 @@ RUN ln -s \
 WORKDIR /data
 ENV HOME /home
 
+RUN mkdir $HOME/texmf
+
 # Install latexmk utililty (https://ctan.org/pkg/latexmk)
 RUN tlmgr install latexmk
 
-VOLUME ["/data","/home"]
+VOLUME ["/data"]
